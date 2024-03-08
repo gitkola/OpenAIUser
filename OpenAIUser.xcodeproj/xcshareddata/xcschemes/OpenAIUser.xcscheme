@@ -29,6 +29,30 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       shouldAutocreateTestPlan = "YES">
+      <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "012B0A992B9920510004913B"
+               BuildableName = "OpenAIUserTests.xctest"
+               BlueprintName = "OpenAIUserTests"
+               ReferencedContainer = "container:OpenAIUser.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "012B0AA82B9926200004913B"
+               BuildableName = "OpenAIUserUITests.xctest"
+               BlueprintName = "OpenAIUserUITests"
+               ReferencedContainer = "container:OpenAIUser.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
