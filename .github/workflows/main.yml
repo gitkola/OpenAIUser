@@ -1,0 +1,51 @@
+
+
+# GitHub Actions Workflow File for OpenAIUser Project
+
+name: OpenAIUser CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: |
+          if [ -f "Podfile" ]; then
+            bundle install
+            bundle exec pod install
+          fi
+          if [ -f "package.json" ]; then
+            npm install
+          fi
+      - name: Build Project
+        run: |
+          xcodebuild -workspace "OpenAIUser.xcworkspace" -scheme "OpenAIUser" -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 12 Pro Max,OS=14.5" build test
+      - name: Test Project
+        if: ${{ hashFiles('OpenAIUserTests') != '' }}
+        run: |
+          xcodebuild -workspace "OpenAIUser.xcworkspace" -scheme "OpenAIUserTests" -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 12 Pro Max,OS=14.5" test
+      - name: Test UI
+        if: ${{ hashFiles('OpenAIUserUITests') != '' }}
+        run: |
+          xcodebuild -workspace "OpenAIUser.xcworkspace" -scheme "OpenAIUserUITests" -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 12 Pro Max,OS=14.5" test
+      - name: Lint Code
+        run: |
+          if [ -f "Podfile" ]; then
+            bundle exec pod lib lint
+          fi
+          if [ -f "package.json" ]; then
+            npm run lint
+          fi
+      - name: Build Documentation
+        run: |
+          if [ -f "README.md" ]; then
+            npm run docs
+          fi
+
